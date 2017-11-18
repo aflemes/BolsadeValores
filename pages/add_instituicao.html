@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="../img/favicon.ico">
+	<title>Adicionar Instituição</title>
+
+	<link href="../css/bootstrap.min.css" rel="stylesheet">
+	<link href="../css/dashboard.css" rel="stylesheet">
+	
+</head>
+<body> 
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Bolsa de Valores</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#">Início</a></li>
+					<li><a href="#">Opções</a></li>
+					<li><a href="#">Perfil</a></li>
+					<li><a href="#">Ajuda</a></li>
+					<li><a href="#" id="liSair">Sair</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div id="main" class="container-fluid">
+		<br>
+		<div class="row">
+			<div class="col-sm-3 col-md-2 sidebar">
+				<ul class="nav nav-sidebar">
+					<li class="active">
+						<a href="#">Adicionar Instituição <span class="sr-only">(current)</span></a>
+					</li>
+					<li><a href="man_instituicao.html">Manutenção de Instituições</a></li>
+					<li><a href="add_administrador.html">Adicionar Administrador</a></li>
+					<li><a href="man_administrador.html">Manutenção de Administrador</a></li>
+				</ul>
+			</div>
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<h3 class="page-header">Adicionar uma Instituição</h3>
+				
+				<div class="row">
+					<div class="form-group col-md-4">
+						<label for="campo1">Nome da Instituição</label>
+						<input type="text" class="form-control" id="campo1">
+					</div>
+					<div class="form-group col-md-4">
+						<label for="campo2">CNPJ</label>
+						<input type="text" class="form-control" id="campo2">
+					</div>
+				 
+					<div class="form-group col-md-4">
+						<label for="campo3">CEP</label>
+						<input type="text" class="form-control" id="campo3">
+					</div>
+					
+					<div class="form-group col-md-4">
+						<label for="campo4">Endereço</label>
+						<input type="text" class="form-control" id="campo4">
+					</div>
+					
+					<div class="form-group col-md-4">
+						<label for="campo5">Número</label>
+						<input type="text" class="form-control" id="campo5">
+					</div>
+					
+					<div class="form-group col-md-4">
+						<label for="campo6">Complemento</label>
+						<input type="text" class="form-control" id="campo6">
+					</div>
+					
+					<div class="form-group col-md-4">
+						<label for="campo7">Bairro</label>
+						<input type="text" class="form-control" id="campo7">
+					</div>
+					
+					<div class="form-group col-md-4">
+						<label for="campo8">UF</label>
+						<select id="campo8" class="form-control">
+							<option value="">-- Selecione --</option>
+							<option value="AC">Acre</option>
+							<option value="AL">Alagoas</option>
+							<option value="AP">Amapá</option>
+							<option value="AM">Amazonas</option>
+							<option value="BA">Bahia</option>
+							<option value="CE">Ceará</option>
+							<option value="DF">Distrito Federal</option>
+							<option value="ES">Espírito Santo</option>
+							<option value="GO">Goiás</option>
+							<option value="MA">Maranhão</option>
+							<option value="MT">Mato Grosso</option>
+							<option value="MS">Mato Grosso do Sul</option>
+							<option value="MG">Minas Gerais</option>
+							<option value="PA">Pará</option>
+							<option value="PB">Paraíba</option>
+							<option value="PR">Paraná</option>
+							<option value="PE">Pernambuco</option>
+							<option value="PI">Piauí</option>
+							<option value="RJ">Rio de Janeiro</option>
+							<option value="RN">Rio Grande do Norte</option>
+							<option value="RS">Rio Grande do Sul</option>
+							<option value="RO">Rondônia</option>
+							<option value="RR">Rorâima</option>
+							<option value="SC">Santa Catarina</option>
+							<option value="SP">São Paulo</option>
+							<option value="SE">Sergipe</option>
+							<option value="TO">Tocantins</option>
+						</select>
+					</div>
+					
+					<div class="form-group col-md-4">
+						<label for="campo9">Tipo</label>
+						<select id="campo9" class="form-control">
+							<option value="">-- Selecione --</option>
+							<option value="UN">Universidade</option>
+							<option value="AC">Aceleradora</option>
+							<option value="EX">Extensão</option>
+							<option value="SE">SEBRAE</option>
+							
+						</select>
+					</div>
+				</div>
+				<div id="actions" class="row">
+					<div class="col-md-12">
+						<button type="submit" class="btn btn-primary">Salvar</button>
+						<a href="index.html" class="btn btn-default">Cancelar</a>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+<script src="../js/jquery-3.2.1.min.js"></script>
+<script src="../js/functions.js"></script>
+</body>
+</html>	
