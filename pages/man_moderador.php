@@ -64,8 +64,8 @@
 		<div class="row">
 			<div class="col-sm-3 col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
-					<li><a href="add_instituicao.html">Adicionar Instituição</a></li>
-					<li><a href="man_instituicao.html">Manutenção de Instituições</a></li>
+					<li><a href="add_instituicao.php">Adicionar Instituição</a></li>
+					<li><a href="man_instituicao.php">Manutenção de Instituições</a></li>
 					<li><a href="add_moderador.php">Adicionar Moderador</a></li>
 					<li class="active">
 						<a href="#">Manutenção de Moderador <span class="sr-only">(current)</span></a>
@@ -118,7 +118,7 @@
 							<td><?php echo $moderador['email']; ?></td>
 							<td><?php echo $moderador['nm-funcao']; ?></td>
 							<td class="actions">
-								<a class="btn btn-success btn-xs" href="view.html">Visualizar</a>
+								<a class="btn btn-success btn-xs" href="view_moderador.php?id=<?php echo $moderador['cd-moderador']; ?>">Visualizar</a>
 								<a class="btn btn-warning btn-xs" href="edit.html">Editar</a>
 								<a class="btn btn-danger btn-xs"  href="#" data-toggle="modal" data-target="#delete-modal">Excluir</a>
 							</td>

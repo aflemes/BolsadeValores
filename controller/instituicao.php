@@ -6,7 +6,7 @@
 	require_once("database.php");
 	
 	switch($_SESSION['action']){
-		case "add_moderador":
+		case "add_instituicao":
 			add();
 			break;
 	}
@@ -16,15 +16,16 @@
 		$found = null;
 
 		try {
-			if ($id) {
-				$sql = "SELECT * FROM MODERADOR WHERE `cd-moderador` = " . $id;
+			if ($id > 0) {
+				$sql = "SELECT * FROM instituicao WHERE `cd-instituicao` = " . $id;
+				
 				$result = $database->query($sql);
 	    
-				if ($result->num_rows > 0) {
+				if ($result) {
 					$found = $result->fetch_assoc();
 				}
 			}else{
-					$sql = "SELECT * FROM MODERADOR";
+					$sql = "SELECT * FROM instituicao";
 					$result = $database->query($sql);
 	    
 					if ($result->num_rows > 0) {
@@ -43,8 +44,8 @@
 	function add(){
 		$database = open_database();
 		
-		$sql = "INSERT INTO moderador(`nm-moderador`, `dt-nascimento`,`cd-instituicao`,`nm-funcao`,`email`,`dt-ini-periodo`,`dt-fim-periodo`,`des-experiencia`) ";
-		$sql.= "VALUES ('".$_POST['nm-moderador']."','".$_POST['dt-nascimento']."','".$_POST['cd-instituicao']."','".$_POST['nm-funcao']."','".$_POST['email']."','".$_POST['dt-ini-periodo']."','".$_POST['dt-fim-periodo']."','".$_POST['des-experiencia']."')";
+		$sql = "INSERT INTO instituicao(`nm-instituicao`, `cd-cnpj`,`cd-cep`,`nm-endereco`,`cd-numero`,`nm-complemento`,`nm-bairro`,`nm-cidade`,`nm-uf`,`nm-tipo`) ";
+		$sql.= "VALUES ('".$_POST['nm-instituicao']."','".$_POST['cd-cnpj']."','".$_POST['cd-cep']."','".$_POST['nm-endereco']."','".$_POST['cd-numero']."','".$_POST['nm-complemento']."','".$_POST['nm-bairro']."','".$_POST['nm-cidade']."','".$_POST['nm-uf']."','".$_POST['nm-tipo']."')";
 		
 		echo $sql."<br>";
 
@@ -59,10 +60,9 @@
 			$_SESSION['error']   = $database->error;
 			$_SESSION['type'] = 'danger';
 		} 
-
 		close_database($database);
 		
-		header('location: ../pages/add_moderador.php');
+		header('location: ../pages/add_instituicao.php');
 	}
 
 ?>

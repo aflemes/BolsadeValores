@@ -63,8 +63,8 @@
 		<div class="row">
 			<div class="col-sm-3 col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
-					<li><a href="add_instituicao.html">Adicionar Instituição</a></li>
-					<li><a href="man_instituicao.html">Manutenção de Instituições</a></li>
+					<li><a href="add_instituicao.php">Adicionar Instituição</a></li>
+					<li><a href="man_instituicao.php">Manutenção de Instituições</a></li>
 					<li class="active">
 						<a href="add_moderador.php">Adicionar Moderador<span class="sr-only">(current)</span></a>
 					</li>

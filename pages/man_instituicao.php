@@ -10,6 +10,14 @@
 	<link href="../css/bootstrap.min.css" rel="stylesheet">
 	<link href="../css/dashboard.css" rel="stylesheet">
 </head>
+<?php
+	session_start();
+	unset($_SESSION['action']);
+	$_SESSION['action'] = 'findall';
+	
+	require_once("../controller/instituicao.php");
+	$instituicoes = findall(0);
+?>
 <body> 
 	<!-- Modal -->
 	<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
@@ -54,7 +62,7 @@
 		<div class="row">
 			<div class="col-sm-3 col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
-					<li><a href="add_instituicao.html">Adicionar Instituição</a></li>
+					<li><a href="add_instituicao.php">Adicionar Instituição</a></li>
 					<li class="active">
 						<a href="#">Manutenção de Instituições <span class="sr-only">(current)</span></a>
 					</li>
@@ -80,7 +88,7 @@
 			</div>
 		 
 			<div class="col-md-3">
-				<a href="add_instituicao.html" class="btn btn-primary pull-right h2">Nova Instituição</a>
+				<a href="add_instituicao.php" class="btn btn-primary pull-right h2">Nova Instituição</a>
 			</div>
 			
 		</div> <!-- /#top -->
@@ -92,27 +100,32 @@
 				<table class="table table-striped" cellspacing="0" cellpadding="0">
 					<thead>
 						<tr>
-							<th>ID</th>
-							<th>Header 1</th>
-							<th>Header 2</th>
-							<th>Header 3</th>
+							<th>Nome</th>
+							<th>CNPJ</th>
+							<th>CEP</th>
+							<th>Estado</th>
+							<th>Tipo</th>
 							<th class="actions">Ações</th>
 						 </tr>
 					</thead>
+					<?php if ($instituicoes) { ?>		
+					<?php foreach ($instituicoes as $instituicao) { ?>
 					<tbody>
 						<tr>
-							<td>1001</td>
-							<td>Lorem ipsum dolor sit amet, consectetur adipiscing</td>
-							<td>Jes</td>
-							<td>01/01/2015</td>
+							<td><?php echo $instituicao['nm-instituicao']; ?></td>
+							<td><?php echo $instituicao['cd-cnpj']; ?></td>				
+							<td><?php echo $instituicao['cd-cep']; ?></td>
+							<td><?php echo $instituicao['nm-uf']; ?></td>
+							<td><?php echo $instituicao['nm-tipo']; ?></td>
 							<td class="actions">
-								<a class="btn btn-success btn-xs" href="view.html">Visualizar</a>
+								<a class="btn btn-success btn-xs" href="view_instituicao.php?id=<?php echo $instituicao['cd-instituicao']; ?>">Visualizar</a>
 								<a class="btn btn-warning btn-xs" href="edit.html">Editar</a>
 								<a class="btn btn-danger btn-xs"  href="#" data-toggle="modal" data-target="#delete-modal">Excluir</a>
 							</td>
 						</tr>
-		 
 					</tbody>
+					<?php } ?>		
+					<?php } ?>
 				 </table>
 				</div>
 			</div>

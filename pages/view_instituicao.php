@@ -5,11 +5,18 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" href="../img/favicon.ico">
-	<title>Visualizar Moderador</title>
+	<title>Visualizar Instituição</title>
 
 	<link href="../css/bootstrap.min.css" rel="stylesheet">
 	<link href="../css/dashboard.css" rel="stylesheet">
 </head>
+<?php
+	require_once("../controller/instituicao.php");
+	
+	$id = $_GET['id'];
+	$instituicao = findall($id);
+
+?>
 <body> 
 	<!-- Modal -->
 	<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
@@ -56,32 +63,56 @@
 		<div class="row">
 			<div class="col-sm-3 col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
-					<li><a href="add_instituicao.html">Adicionar Instituição</a></li>
-					<li><a href="man_instituicao.html">Manutenção de Instituições</a></li>
+					<li><a href="add_instituicao.php">Adicionar Instituição</a></li>
+					<li><a href="man_instituicao.php">Manutenção de Instituições</a></li>
 					<li><a href="add_moderador.php">Adicionar Moderador</a></li>
 					<li><a href="man_moderador.php">Manutenção de Moderador</a></li>
 				</ul>
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<h3 class="page-header">Visualizar Moderador</h3>
+				<h3 class="page-header">Visualizar Instituição</h3>
 				<div class="col-md-4">
-					<p><strong>Nome do Moderador</strong></p>
-					<p>{nm-moderador}</p>
+					<p><strong>Nome da Instituição</strong></p>
+					<p><?php echo $instituicao["nm-instituicao"]; ?></p>
 				</div>
 				<div class="col-md-4">
-					<p><strong>Instituição</strong></p>
-					<p>{nm-instituicao}</p>
+					<p><strong>CNPJ</strong></p>
+					<p><?php echo $instituicao["cd-cnpj"]; ?></p>
 				</div>
 				<div class="col-md-4">
-					<p><strong>Função</strong></p>
-					<p>{nm-funcao}</p>
+					<p><strong>CEP</strong></p>
+					<p><?php echo $instituicao["cd-cep"]; ?></p>
 				</div>
 				<div class="col-md-4">
-					<p><strong>Email</strong></p>
-					<p>{nm-email}</p>
+					<p><strong>Endereço</strong></p>
+					<p><?php echo $instituicao["nm-endereco"]; ?></p>
 				</div>
-				<br/><br/><br/><br/>
-				<br/><br/><br/><br/>
+				<div class="col-md-4">
+					<p><strong>Número</strong></p>
+					<p><?php echo $instituicao["cd-numero"]; ?></p>
+				</div>
+				<div class="col-md-4">
+					<p><strong>Complemento</strong></p>
+					<p><?php echo $instituicao["nm-complemento"]; ?></p>
+				</div>
+				<div class="col-md-4">
+					<p><strong>Bairro</strong></p>
+					<p><?php echo $instituicao["nm-bairro"]; ?></p>
+				</div>
+				<div class="col-md-4">
+					<p><strong>Cidade</strong></p>
+					<p><?php echo $instituicao["nm-cidade"]; ?></p>
+				</div>
+				<div class="col-md-4">
+					<p><strong>UF</strong></p>
+					<p><?php echo $instituicao["nm-uf"]; ?></p>
+				</div>
+				<div class="col-md-4">
+					<p><strong>Tipo</strong></p>
+					<p><?php echo $instituicao["nm-tipo"]; ?></p>
+				</div>
+				<hr/><hr/><hr/><hr/><hr/><hr/><hr/>
+				<hr/><hr/><hr/><hr/><hr/><hr/><hr/>
 				<div class="row">
 					<div id="actions" class="row">
 						<div class="col-md-12">
@@ -94,8 +125,8 @@
 			</div>
 		</div>
 	</div>
-<script src="../js/jquery-3.2.1.min.js"></script>
-<script src="../js/functions.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="../js/jquery-3.2.1.min.js"></script>
+	<script src="../js/functions.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>
