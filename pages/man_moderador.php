@@ -10,6 +10,16 @@
 	<link href="../css/bootstrap.min.css" rel="stylesheet">
 	<link href="../css/dashboard.css" rel="stylesheet">
 </head>
+<?php
+	session_start();
+	unset($_SESSION['action']);
+	$_SESSION['action'] = 'findall';
+	
+	require_once("../controller/moderador.php");
+	$moderadores = findall(0);
+	
+	//print_r($moderadores);
+?>
 <body> 
 	<!-- Modal -->
 	<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
@@ -56,7 +66,7 @@
 				<ul class="nav nav-sidebar">
 					<li><a href="add_instituicao.html">Adicionar Instituição</a></li>
 					<li><a href="man_instituicao.html">Manutenção de Instituições</a></li>
-					<li><a href="add_Moderador.html">Adicionar Moderador</a></li>
+					<li><a href="add_moderador.php">Adicionar Moderador</a></li>
 					<li class="active">
 						<a href="#">Manutenção de Moderador <span class="sr-only">(current)</span></a>
 					</li>
@@ -80,7 +90,7 @@
 			</div>
 		 
 			<div class="col-md-3">
-				<a href="add_moderador.html" class="btn btn-primary pull-right h2">Novo Moderador</a>
+				<a href="add_moderador.php" class="btn btn-primary pull-right h2">Novo Moderador</a>
 			</div>
 			
 		</div> <!-- /#top -->
@@ -92,27 +102,29 @@
 				<table class="table table-striped" cellspacing="0" cellpadding="0">
 					<thead>
 						<tr>
-							<th>ID</th>
-							<th>Header 1</th>
-							<th>Header 2</th>
-							<th>Header 3</th>
+							<th>Nome Moderador</th>
+							<th>Dt. Nascimento</th>
+							<th>Email</th>
+							<th>Função</th>
 							<th class="actions">Ações</th>
 						 </tr>
 					</thead>
 					<tbody>
-		 
+					<?php if ($moderadores) { ?>		
+					<?php foreach ($moderadores as $moderador) { ?>
 						<tr>
-							<td>1001</td>
-							<td>Lorem ipsum dolor sit amet, consectetur adipiscing</td>
-							<td>Jes</td>
-							<td>01/01/2015</td>
+							<td><?php echo $moderador['nm-moderador']; ?></td>				
+							<td><?php echo $moderador['dt-nascimento']; ?></td>				
+							<td><?php echo $moderador['email']; ?></td>
+							<td><?php echo $moderador['nm-funcao']; ?></td>
 							<td class="actions">
 								<a class="btn btn-success btn-xs" href="view.html">Visualizar</a>
 								<a class="btn btn-warning btn-xs" href="edit.html">Editar</a>
 								<a class="btn btn-danger btn-xs"  href="#" data-toggle="modal" data-target="#delete-modal">Excluir</a>
 							</td>
 						</tr>
-		 
+					<?php } ?>		
+					<?php } ?>
 					</tbody>
 				 </table>
 				</div>
