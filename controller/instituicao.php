@@ -10,6 +10,38 @@
 			add();
 			break;
 	}
+	if (isset($_POST['action'])){
+		switch($_POST['action']){
+			case "delete":
+				delete();
+				break;
+		}
+	}
+	
+	function delete(){
+		$database = open_database();
+		$found = null;
+
+		$record = $_POST['instituicao'];
+		try {
+			if ($record) {
+				$sql = "DELETE FROM instituicao WHERE `cd-instituicao` = ".$record;
+				$result = $database->query($sql);
+	    
+				if ($result) {
+					$_SESSION['type'] = 'success';
+				}
+				else 
+					$_SESSION['type'] = 'failure';				
+			}
+		} catch (Exception $e) {
+			$_SESSION['message'] = $e->GetMessage();
+			$_SESSION['type'] = 'danger';
+		}
+	
+		close_database($database);
+		echo $_SESSION['type'];
+	}
 	
 	function findall($id){
 		$database = open_database();

@@ -13,6 +13,8 @@
 <?php
 	session_start();
 	unset($_SESSION['action']);
+	unset($_SESSION['type']);
+	
 	$_SESSION['action'] = 'findall';
 	
 	require_once("../controller/moderador.php");
@@ -21,6 +23,7 @@
 	//print_r($moderadores);
 ?>
 <body> 
+	<input type="hidden" id="registro"/>
 	<!-- Modal -->
 	<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
 		<div class="modal-dialog" role="document">
@@ -31,7 +34,7 @@
 				</div>
 				<div class="modal-body">Deseja realmente excluir este Moderador? </div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary">Sim</button>
+					<button id="btnConfirm" type="button" class="btn btn-primary" data-dismiss="modal">Sim</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">N&atilde;o</button>
 				</div>
 			</div>
@@ -119,8 +122,8 @@
 							<td><?php echo $moderador['nm-funcao']; ?></td>
 							<td class="actions">
 								<a class="btn btn-success btn-xs" href="view_moderador.php?id=<?php echo $moderador['cd-moderador']; ?>">Visualizar</a>
-								<a class="btn btn-warning btn-xs" href="edit.html">Editar</a>
-								<a class="btn btn-danger btn-xs"  href="#" data-toggle="modal" data-target="#delete-modal">Excluir</a>
+								<a class="btn btn-warning btn-xs" href="../pages/edit_moderador.php?id=<?php echo $moderador["cd-moderador"]; ?>" class="btn btn-primary">Editar</a>
+								<a class="btn btn-danger btn-xs"  href="#" data-toggle="modal" data-target="#delete-modal" onclick="selecionado(<?php echo $moderador['cd-moderador']; ?>)">Excluir</a>
 							</td>
 						</tr>
 					<?php } ?>		
@@ -149,5 +152,31 @@
 	<script src="../js/jquery-3.2.1.min.js"></script>
 	<script src="../js/functions.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script language="javascript">
+		function selecionado(moderador){
+			$("#registro").val(moderador);
+		}
+		$("#btnConfirm").click(function (){
+				jQuery.ajax({
+				type: "POST",
+				url: "../controller/moderador.php",
+				data:{
+					moderador: $("#registro").val(),
+					action: 'delete'
+				},
+				success: function( data )
+				{
+					if (data === 'success'){
+						alert("Registro removido com sucesso!");
+						location.reload();
+					}
+					else
+						alert("Ocorreu um erro ao remover o registro");
+						
+				} 
+			});
+		 });
+	</script>
+	
 </body>
 </html>

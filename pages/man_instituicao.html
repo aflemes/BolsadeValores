@@ -10,18 +10,7 @@
 	<link href="../css/bootstrap.min.css" rel="stylesheet">
 	<link href="../css/dashboard.css" rel="stylesheet">
 </head>
-<?php
-	session_start();
-	unset($_SESSION['action']);
-	unset($_SESSION['type']);
-	
-	$_SESSION['action'] = 'findall';
-	
-	require_once("../controller/instituicao.php");
-	$instituicoes = findall(0);
-?>
-<body>
-	<input type="hidden" id="registro"/>
+<body> 
 	<!-- Modal -->
 	<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
 		<div class="modal-dialog" role="document">
@@ -32,7 +21,7 @@
 				</div>
 				<div class="modal-body">Deseja realmente excluir esta Instituição? </div>
 				<div class="modal-footer">
-					<button id="btnConfirm" type="button" class="btn btn-primary" data-dismiss="modal">Sim</button>
+					<button type="button" class="btn btn-primary">Sim</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">N&atilde;o</button>
 				</div>
 			</div>
@@ -65,12 +54,12 @@
 		<div class="row">
 			<div class="col-sm-3 col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
-					<li><a href="add_instituicao.php">Adicionar Instituição</a></li>
+					<li><a href="add_instituicao.html">Adicionar Instituição</a></li>
 					<li class="active">
 						<a href="#">Manutenção de Instituições <span class="sr-only">(current)</span></a>
 					</li>
-					<li><a href="add_moderador.php">Adicionar Moderador</a></li>
-					<li><a href="man_moderador.php">Manutenção de Moderador</a></li>
+					<li><a href="add_Moderador.html">Adicionar Moderador</a></li>
+					<li><a href="man_Moderador.html">Manutenção de Moderador</a></li>
 				</ul>
 			</div>
 		</div>
@@ -91,7 +80,7 @@
 			</div>
 		 
 			<div class="col-md-3">
-				<a href="add_instituicao.php" class="btn btn-primary pull-right h2">Nova Instituição</a>
+				<a href="add_instituicao.html" class="btn btn-primary pull-right h2">Nova Instituição</a>
 			</div>
 			
 		</div> <!-- /#top -->
@@ -103,32 +92,27 @@
 				<table class="table table-striped" cellspacing="0" cellpadding="0">
 					<thead>
 						<tr>
-							<th>Nome</th>
-							<th>CNPJ</th>
-							<th>CEP</th>
-							<th>Estado</th>
-							<th>Tipo</th>
+							<th>ID</th>
+							<th>Header 1</th>
+							<th>Header 2</th>
+							<th>Header 3</th>
 							<th class="actions">Ações</th>
 						 </tr>
 					</thead>
-					<?php if ($instituicoes) { ?>		
-					<?php foreach ($instituicoes as $instituicao) { ?>
 					<tbody>
 						<tr>
-							<td><?php echo $instituicao['nm-instituicao']; ?></td>
-							<td><?php echo $instituicao['cd-cnpj']; ?></td>				
-							<td><?php echo $instituicao['cd-cep']; ?></td>
-							<td><?php echo $instituicao['nm-uf']; ?></td>
-							<td><?php echo $instituicao['nm-tipo']; ?></td>
+							<td>1001</td>
+							<td>Lorem ipsum dolor sit amet, consectetur adipiscing</td>
+							<td>Jes</td>
+							<td>01/01/2015</td>
 							<td class="actions">
-								<a class="btn btn-success btn-xs" href="view_instituicao.php?id=<?php echo $instituicao['cd-instituicao']; ?>">Visualizar</a>
-								<a class="btn btn-warning btn-xs" href="../pages/edit_instituicao.php?id=<?php echo $instituicao["cd-instituicao"]; ?>" class="btn btn-primary">Editar</a>
-								<a class="btn btn-danger btn-xs"  href="#" data-toggle="modal" data-target="#delete-modal" onclick="selecionado(<?php echo $instituicao['cd-instituicao']; ?>)">Excluir</a>
+								<a class="btn btn-success btn-xs" href="view.html">Visualizar</a>
+								<a class="btn btn-warning btn-xs" href="edit.html">Editar</a>
+								<a class="btn btn-danger btn-xs"  href="#" data-toggle="modal" data-target="#delete-modal">Excluir</a>
 							</td>
 						</tr>
+		 
 					</tbody>
-					<?php } ?>		
-					<?php } ?>
 				 </table>
 				</div>
 			</div>
@@ -152,31 +136,5 @@
 	<script src="../js/jquery-3.2.1.min.js"></script>
 	<script src="../js/functions.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	
-	<script language="javascript">
-		function selecionado(moderador){
-			$("#registro").val(moderador);
-		}
-		$("#btnConfirm").click(function (){
-				jQuery.ajax({
-				type: "POST",
-				url: "../controller/instituicao.php",
-				data:{
-					instituicao: $("#registro").val(),
-					action: 'delete'
-				},
-				success: function( data )
-				{
-					if (data === 'success'){
-						alert("Registro removido com sucesso!");
-						location.reload();
-					}
-					else
-						alert("Ocorreu um erro ao remover o registro");
-						
-				} 
-			});
-		 });
-	</script>
 </body>
 </html>
