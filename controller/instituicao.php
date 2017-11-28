@@ -9,6 +9,9 @@
 		case "add_instituicao":
 			add();
 			break;
+		case "edit_instituicao":
+			edit();
+			break;
 	}
 	if (isset($_POST['action'])){
 		switch($_POST['action']){
@@ -17,6 +20,46 @@
 				break;
 		}
 	}
+	
+	function edit(){
+		$database = open_database();
+		$found = null;
+		
+		$_SESSION['action'] = "";
+
+		$instituicao = $_POST['cd-instituicao'];
+		try {
+			$nome = $_POST['nm-instituicao'];
+			$cnpj = $_POST['cd-cnpj'];
+			$cep  = $_POST['cd-cep'];
+			$endereco = $_POST['nm-endereco'];
+			$numero = $_POST['cd-numero'];
+			$compl  = $_POST['nm-complemento'];
+			$bairro  = $_POST['nm-bairro'];
+			//$cidade  = $_POST['nm-bairro'];
+			$uf  	 = $_POST['nm-uf'];
+			$tipo    = $_POST['nm-tipo'];
+			
+			$sql = "UPDATE `instituicao` SET `nm-instituicao`='$nome',`cd-cnpj`='$cnpj',`cd-cep`='$cep ',`nm-endereco`='$endereco',`cd-numero`=".$numero.",`nm-complemento`='$compl',`nm-bairro`='$bairro',`nm-uf`='$uf',`nm-tipo`='$tipo' WHERE `cd-instituicao` = ".$instituicao;
+			$result = $database->query($sql);
+	
+			if ($result) {
+				$_SESSION['type'] = 'success';
+			}
+			else 
+				$_SESSION['type'] = 'failure';				
+			
+		} catch (Exception $e) {
+			$_SESSION['message'] = $e->GetMessage();
+			$_SESSION['type'] = 'danger';
+		}
+	
+		close_database($database);
+		
+		header('location: ../pages/edit_instituicao.php?id='.$instituicao);
+		
+	}
+	
 	
 	function delete(){
 		$database = open_database();

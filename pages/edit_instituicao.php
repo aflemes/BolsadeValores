@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" href="../img/favicon.ico">
-	<title>Adicionar Instituição</title>
+	<title>Editar Instituição</title>
 
 	<link href="../css/bootstrap.min.css" rel="stylesheet">
 	<link href="../css/dashboard.css" rel="stylesheet">
@@ -18,7 +18,7 @@
 	require_once("../controller/instituicao.php");
 	$instituicao = findall($id_instituicao);
 	
-				
+	$_SESSION['action'] = "edit_instituicao";
 ?>
 <body> 
 	<!-- Modal -->
@@ -72,46 +72,47 @@
 				</ul>
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<h3 class="page-header">Adicionar uma Instituição</h3>
+				<h3 class="page-header">Editar Instituição</h3>
 				<form method="post" action="../controller/instituicao.php">
+					<input type="hidden" name="cd-instituicao" value="<?php echo $instituicao['cd-instituicao']; ?>">
 					<div class="row">
 						<div class="form-group col-md-4">
 							<label for="campo1">Nome da Instituição</label>
-							<input type="text" class="form-control" name="nm-instituicao" value="<?php echo $instituicao['nm-instituicao'];?>">
+							<input type="text" class="form-control" name="nm-instituicao" value="<?php echo $instituicao['nm-instituicao'];?>" required>
 						</div>
 						<div class="form-group col-md-4">
 							<label for="campo2">CNPJ</label>
-							<input type="text" class="form-control" name="cd-cnpj" value="<?php echo $instituicao['cd-cnpj'];?>">
+							<input type="text" class="form-control" id="cd-cnpj" name="cd-cnpj" value="<?php echo $instituicao['cd-cnpj'];?>" required>
 						</div>
 					 
 						<div class="form-group col-md-4">
 							<label for="campo3">CEP</label>
-							<input type="text" class="form-control" name="cd-cep" value="<?php echo $instituicao['cd-cep'];?>">
+							<input type="text" class="form-control" id="cd-cep" name="cd-cep" value="<?php echo $instituicao['cd-cep'];?>" required>
 						</div>
 						
 						<div class="form-group col-md-4">
 							<label for="campo4">Endereço</label>
-							<input type="text" class="form-control" name="nm-endereco" value="<?php echo $instituicao['nm-endereco'];?>">
+							<input type="text" class="form-control" name="nm-endereco" value="<?php echo $instituicao['nm-endereco'];?>" required>
 						</div>
 						
 						<div class="form-group col-md-4">
 							<label for="campo5">Número</label>
-							<input type="text" class="form-control" name="cd-numero" value="<?php echo $instituicao['cd-numero'];?>">
+							<input type="number" class="form-control" name="cd-numero" value="<?php echo $instituicao['cd-numero'];?>" required>
 						</div>
 						
 						<div class="form-group col-md-4">
 							<label for="campo6">Complemento</label>
-							<input type="text" class="form-control" name="nm-complemento" value="<?php echo $instituicao['nm-complemento'];?>">
+							<input type="text" class="form-control" name="nm-complemento" value="<?php echo $instituicao['nm-complemento'];?>" required>
 						</div>
 						
 						<div class="form-group col-md-4">
 							<label for="campo7">Bairro</label>
-							<input type="text" class="form-control" name="nm-bairro" value="<?php echo $instituicao['nm-bairro'];?>">
+							<input type="text" class="form-control" name="nm-bairro" value="<?php echo $instituicao['nm-bairro'];?>" required>
 						</div>
 						
 						<div class="form-group col-md-4">
 							<label for="campo8">UF</label>
-							<select name="nm-uf" class="form-control">
+							<select name="nm-uf" class="form-control" required>
 								<?php $uf = $instituicao['nm-uf']; ?>
 								<option value="">-- Selecione --</option>
 								<option value="Acre"     <?php if ($uf === "Acre") echo "selected"; ?>>
@@ -200,12 +201,21 @@
 						
 						<div class="form-group col-md-4">
 							<label for="campo9">Tipo</label>
-							<select name="nm-tipo" class="form-control">
+							<select name="nm-tipo" class="form-control" required>
+								<?php $tipo = $instituicao['nm-tipo']; ?>
 								<option value="">-- Selecione --</option>
-								<option value="Universidade">Universidade</option>
-								<option value="Aceleradora">Aceleradora</option>
-								<option value="Extensão">Extensão</option>
-								<option value="SEBRAE">SEBRAE</option>
+								<option value="Universidade" <?php if ($tipo === "Universidade") echo "selected"; ?>>
+									Universidade
+								</option>
+								<option value="Aceleradora" <?php if ($tipo === "Aceleradora") echo "selected"; ?>>
+									Aceleradora
+								</option>
+								<option value="Extensão" <?php if ($tipo === "Extensão") echo "selected"; ?>>
+									Extensão
+								</option>
+								<option value="SEBRAE" <?php if ($tipo === "SEBRAE") echo "selected"; ?>>
+									SEBRAE
+								</option>
 								
 							</select>
 						</div>
@@ -223,7 +233,13 @@
 <script src="../js/jquery-3.2.1.min.js"></script>
 <script src="../js/functions.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
+<script src="../js/jquery.mask.js" type="text/javascript" /></script>
+<script language="javascript">
+	$(document).ready(function(){	
+		$("#cd-cnpj").mask("99.999.999/9999-99");
+		$("#cd-cep").mask("99999-999");
+	});
+</script>
 <?php
 	if (isset($_SESSION['type'])){
 		if (trim(strcmp($_SESSION['type'],"success")) == 0){

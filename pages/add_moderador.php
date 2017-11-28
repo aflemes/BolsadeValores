@@ -13,8 +13,14 @@
 </head>
 <?php
 	session_start();
+	$_SESSION['action'] = '';
+	require_once("../controller/moderador.php");
 	
 	$_SESSION['action'] = "add_moderador";
+	
+	$cd_protocolo = getLastProtocol();
+	$cd_protocolo++;
+	
 				
 ?>
 <body> 
@@ -128,9 +134,9 @@
 						</div>
 					</div>
 					<div class="row">	
-						<div class="form-group col-md-4">
+						<div class="form-group col-md-2">
 							<label for="campo9">Protocolo</label>
-							<input type="text" class="form-control" name="cd-protocolo">
+							<input type="text" class="form-control" name="cd-protocolo" value="<?php echo $cd_protocolo; ?>" disabled>
 						</div>					
 					</div>
 					<div id="actions" class="row">

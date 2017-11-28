@@ -17,6 +17,8 @@
 	$id_moderador = $_GET["id"];
 	require_once("../controller/moderador.php");
 	$moderador = findall($id_moderador);
+	
+	$_SESSION['action'] = "edit_moderador";
 				
 ?>
 <body> 
@@ -72,8 +74,9 @@
 				</ul>
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<h3 class="page-header">Adicionar Moderador</h3>
+				<h3 class="page-header">Editar Moderador</h3>
 				<form method="post" action="../controller/moderador.php">
+					<input type="hidden" name="cd-moderador" value="<?php echo $moderador['cd-moderador']; ?>">
 					<div class="row">
 						<div class="form-group col-md-4">
 							<label for="campo1">Nome do Moderador</label>
@@ -135,7 +138,7 @@
 					<div class="row">	
 						<div class="form-group col-md-4">
 							<label for="campo9">Protocolo</label>
-							<input type="text" class="form-control" name="cd-protocolo" value="<?php echo $moderador['cd-protocolo'];?>">
+							<input type="text" class="form-control" name="cd-protocolo" value="<?php echo $moderador['cd-protocolo'];?>" disabled>
 						</div>					
 					</div>
 					<div id="actions" class="row">

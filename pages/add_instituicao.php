@@ -76,41 +76,41 @@
 					<div class="row">
 						<div class="form-group col-md-4">
 							<label for="campo1">Nome da Instituição</label>
-							<input type="text" class="form-control" name="nm-instituicao">
+							<input type="text" class="form-control" name="nm-instituicao" required>
 						</div>
 						<div class="form-group col-md-4">
 							<label for="campo2">CNPJ</label>
-							<input type="text" class="form-control" name="cd-cnpj">
+							<input type="text" class="form-control" id="cd-cnpj" name="cd-cnpj" required>
 						</div>
 					 
 						<div class="form-group col-md-4">
 							<label for="campo3">CEP</label>
-							<input type="text" class="form-control" name="cd-cep">
+							<input type="text" class="form-control" id="cd-cep" name="cd-cep" required>
 						</div>
 						
 						<div class="form-group col-md-4">
 							<label for="campo4">Endereço</label>
-							<input type="text" class="form-control" name="nm-endereco">
+							<input type="text" class="form-control" name="nm-endereco" required>
 						</div>
 						
 						<div class="form-group col-md-4">
 							<label for="campo5">Número</label>
-							<input type="text" class="form-control" name="cd-numero">
+							<input type="number" class="form-control" name="cd-numero" required>
 						</div>
 						
 						<div class="form-group col-md-4">
 							<label for="campo6">Complemento</label>
-							<input type="text" class="form-control" name="nm-complemento">
+							<input type="text" class="form-control" name="nm-complemento" required>
 						</div>
 						
 						<div class="form-group col-md-4">
 							<label for="campo7">Bairro</label>
-							<input type="text" class="form-control" name="nm-bairro">
+							<input type="text" class="form-control" name="nm-bairro" required>
 						</div>
 						
 						<div class="form-group col-md-4">
 							<label for="campo8">UF</label>
-							<select name="nm-uf" class="form-control">
+							<select name="nm-uf" class="form-control" required>
 								<option value="">-- Selecione --</option>
 								<option value="Acre">Acre</option>
 								<option value="Alagoas">Alagoas</option>
@@ -144,7 +144,7 @@
 						
 						<div class="form-group col-md-4">
 							<label for="campo9">Tipo</label>
-							<select name="nm-tipo" class="form-control">
+							<select name="nm-tipo" class="form-control" required>
 								<option value="">-- Selecione --</option>
 								<option value="Universidade">Universidade</option>
 								<option value="Aceleradora">Aceleradora</option>
@@ -167,7 +167,13 @@
 <script src="../js/jquery-3.2.1.min.js"></script>
 <script src="../js/functions.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
+<script src="../js/jquery.mask.js" type="text/javascript" /></script>
+<script language="javascript">
+	$(document).ready(function(){	
+		$("#cd-cnpj").mask("99.999.999/9999-99");
+		$("#cd-cep").mask("99999-999");
+	});
+</script>
 <?php
 	if (isset($_SESSION['type'])){
 		if (trim(strcmp($_SESSION['type'],"success")) == 0){
@@ -181,5 +187,6 @@
 	
 	unset($_SESSION['type']);
 ?>
+
 </body>
 </html>	
