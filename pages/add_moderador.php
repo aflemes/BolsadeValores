@@ -42,6 +42,23 @@
 		</div>
 	</div> <!-- /.modal -->
 	
+	<div class="modal fade" id="moderador-cadastrado-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="modalLabel">Erro</h4>
+				</div>
+				<div class="modal-body">
+					Moderador já cadastrado!
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+				</div>
+			</div>
+		</div>
+	</div> <!-- /.modal -->
+	
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -79,7 +96,7 @@
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 				<h3 class="page-header">Adicionar Moderador</h3>
-				<form method="post" action="../controller/moderador.php">
+				<form  id="fornulario" method="post" action="../controller/moderador.php">
 					<div class="row">
 						<div class="form-group col-md-4">
 							<label for="campo1">Nome do Moderador</label>
@@ -87,7 +104,11 @@
 						</div>
 						<div class="form-group col-md-3">
 							<label for="campo2">Data de Nascimento</label>
-							<input type="date" class="form-control" name="dt-nascimento" required>
+							<input type="date" class="form-control" id="dt-nascimento" name="dt-nascimento" required>
+						</div>
+						<div class="form-group col-md-2">
+							<label for="campo2">Idade</label>
+							<input type="text" class="form-control" id="idade" disabled>
 						</div>
 					</div>
 					<div class="row">
@@ -115,13 +136,13 @@
 					<div class="row">
 						<div class="form-group col-md-3">
 							<label for="campo6">Período Moderação (Inicial)</label>
-							<input type="date" class="form-control" name="dt-ini-periodo" required>
+							<input type="date" class="form-control" id="dt-ini-periodo" name="dt-ini-periodo" required>
 							
 						</div>
 						
 						<div class="form-group col-md-3">
 							<label for="campo7">Período Moderação (Final)</label>
-							<input type="date" class="form-control" name="dt-fim-periodo" required>
+							<input type="date" class="form-control" id="dt-fim-periodo" name="dt-fim-periodo" required>
 
 						</div>
 					</div>
@@ -136,12 +157,12 @@
 					<div class="row">	
 						<div class="form-group col-md-2">
 							<label for="campo9">Protocolo</label>
-							<input type="text" class="form-control" name="cd-protocolo" value="<?php echo $cd_protocolo; ?>" disabled>
+							<input type="text" class="form-control" name="cd-protocolo" value="<?php echo $cd_protocolo; ?>" readonly>
 						</div>					
 					</div>
 					<div id="actions" class="row">
 						<div class="col-md-12">
-							<button type="submit" class="btn btn-primary">Salvar</button>
+							<button type="submit" id="btnSalvar" class="btn btn-primary">Salvar</button>
 							<a href="index.html" class="btn btn-default">Cancelar</a>
 						</div>
 					</div>	
@@ -152,6 +173,57 @@
 <script src="../js/jquery-3.2.1.min.js"></script>
 <script src="../js/functions.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script>
+	$("#dt-nascimento").blur(function(){
+		var dtNascimento = new Date($("#dt-nascimento").val());
+		$("#idade").val(getIdade(dtNascimento) + " Ano(s)");
+	});
+
+	$("#btnSalvar").click(function(){
+		var dtNascimento     = new Date($("#dt-nascimento").val());
+		var dtPeriodoInicial = new Date($("#dt-ini-periodo").val());
+		var dtPeriodoFinal   = new Date($("#dt-fim-periodo").val());
+		
+		if (!Is18(dtNascimento)){
+			return;
+		}			
+		if (dtPeriodoInicial > dtPeriodoFinal){
+			alert("Periodo Inicial deve ser MENOR que Periodo Final");
+			return;
+		}
+		
+		$("#fornulario").submit();
+		
+	});
+
+	function Is18(dtNascimento) 
+	{		
+	  if (!(getIdade(dtNascimento) >= 18)){
+		   alert("Moderador deve ter mais de 18 Anos");
+		   return false;
+	  }
+	  
+	  return true;
+		  
+	}
+	
+	function getIdade(nascimento) {
+	    var hoje = new Date();
+	  
+		//Retorna a diferença entre hoje e a data de nascimento em anos.
+		var ano = hoje.getFullYear() - nascimento.getFullYear();
+	 
+		//Retorna a diferença de mês do mês de nascimento para o atual.
+		var m = hoje.getMonth() - nascimento.getMonth();
+
+		//Caso ainda não tenha ultrapassado o dia e o mês
+		if (m < 0 || (m === 0 && hoje.getDate() < nascimento.getDate())) {
+			ano--;
+		}
+		return ano;
+	}
+</script>
+
 
 <?php
 	if (isset($_SESSION['type'])){
@@ -159,6 +231,13 @@
 			echo "<script type='text/javascript'>
 					$(document).ready(function(){
 						$('#sucess-modal').modal('show');
+					});
+				</script>";
+		}
+		else{
+			echo "<script type='text/javascript'>
+					$(document).ready(function(){
+						$('#moderador-cadastrado-modal').modal('show');
 					});
 				</script>";
 		}

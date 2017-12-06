@@ -119,20 +119,28 @@
 	function add(){
 		$database = open_database();
 		
-		$sql = "INSERT INTO moderador(`nm-moderador`, `dt-nascimento`,`cd-instituicao`,`nm-funcao`,`email`,`dt-ini-periodo`,`dt-fim-periodo`,`des-experiencia`) ";
-		$sql.= "VALUES ('".$_POST['nm-moderador']."','".$_POST['dt-nascimento']."','".$_POST['cd-instituicao']."','".$_POST['nm-funcao']."','".$_POST['email']."','".$_POST['dt-ini-periodo']."','".$_POST['dt-fim-periodo']."','".$_POST['des-experiencia']."')";
+		$valida = "SELECT * FROM `moderador` WHERE `nm-moderador` = '".$_POST['nm-moderador']."'";
+		$result = $database->query($valida);
 		
-		try {
-			$database->query($sql);
+		if ($result->num_rows > 0) {
+			$_SESSION['message'] = 'Moderador já cadastrado';
+			$_SESSION['type'] 	 = 'danger';
+		}else{		
+			$sql = "INSERT INTO moderador(`nm-moderador`, `dt-nascimento`,`cd-instituicao`,`nm-funcao`,`email`,`dt-ini-periodo`,`dt-fim-periodo`,`des-experiencia`) ";
+			$sql.= "VALUES ('".$_POST['nm-moderador']."','".$_POST['dt-nascimento']."','".$_POST['cd-instituicao']."','".$_POST['nm-funcao']."','".$_POST['email']."','".$_POST['dt-ini-periodo']."','".$_POST['dt-fim-periodo']."','".$_POST['des-experiencia']."')";
+			
+			try {
+				$database->query($sql);
 
-			$_SESSION['message'] = 'Registro cadastrado com sucesso.';
-			$_SESSION['type'] = 'success';
-  
-		} catch (Exception $e) {
-			$_SESSION['message'] = 'Nao foi possivel realizar a operacao.';
-			$_SESSION['error']   = $database->error;
-			$_SESSION['type'] = 'danger';
-		} 
+				$_SESSION['message'] = 'Registro cadastrado com sucesso.';
+				$_SESSION['type'] = 'success';
+	  
+			} catch (Exception $e) {
+				$_SESSION['message'] = 'Nao foi possivel realizar a operacao.';
+				$_SESSION['error']   = $database->error;
+				$_SESSION['type'] = 'danger';
+			} 
+		}
 
 		close_database($database);
 		
@@ -141,7 +149,7 @@
 	
 	function getLastProtocol(){
 		$database = open_database();
-		$sql = "SELECT `cd-protocolo` from moderador order by `cd-protocolo`";
+		$sql = "SELECT `cd-protocolo` from moderador order by `cd-protocolo` desc";
 		
 		try {
 			$result = $database->query($sql);

@@ -72,7 +72,7 @@
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 				<h3 class="page-header">Adicionar uma Instituição</h3>
-				<form method="post" action="../controller/instituicao.php">
+				<form id="formulario" method="post" action="../controller/instituicao.php">
 					<div class="row">
 						<div class="form-group col-md-4">
 							<label for="campo1">Nome da Instituição</label>
@@ -156,7 +156,7 @@
 					</div>
 					<div id="actions" class="row">
 						<div class="col-md-12">
-							<button type="submit" class="btn btn-primary">Salvar</button>
+							<button type="submit" id="btnSalvar" class="btn btn-primary">Salvar</button>
 							<a href="index.html" class="btn btn-default">Cancelar</a>
 						</div>
 					</div>	
@@ -173,6 +173,68 @@
 		$("#cd-cnpj").mask("99.999.999/9999-99");
 		$("#cd-cep").mask("99999-999");
 	});
+	
+	$("#btnSalvar").click(function(){
+		var cnpj = $("#cd-cnpj").val();
+		
+		if (!validarCNPJ(cnpj)){
+			alert("CNPJ informado não é valido!");
+			return;
+		}
+		$("#formulario").submit();
+	});
+	
+	function validarCNPJ(cnpj) { 
+		cnpj = cnpj.replace(/[^\d]+/g,'');
+	 
+		if(cnpj == '') return false;
+		 
+		if (cnpj.length != 14)
+			return false;
+	 
+		// Elimina CNPJs invalidos conhecidos
+		if (cnpj == "00000000000000" || 
+			cnpj == "11111111111111" || 
+			cnpj == "22222222222222" || 
+			cnpj == "33333333333333" || 
+			cnpj == "44444444444444" || 
+			cnpj == "55555555555555" || 
+			cnpj == "66666666666666" || 
+			cnpj == "77777777777777" || 
+			cnpj == "88888888888888" || 
+			cnpj == "99999999999999")
+			return false;
+			 
+		// Valida DVs
+		tamanho = cnpj.length - 2
+		numeros = cnpj.substring(0,tamanho);
+		digitos = cnpj.substring(tamanho);
+		soma = 0;
+		pos = tamanho - 7;
+		for (i = tamanho; i >= 1; i--) {
+		  soma += numeros.charAt(tamanho - i) * pos--;
+		  if (pos < 2)
+				pos = 9;
+		}
+		resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+		if (resultado != digitos.charAt(0))
+			return false;
+			 
+		tamanho = tamanho + 1;
+		numeros = cnpj.substring(0,tamanho);
+		soma = 0;
+		pos = tamanho - 7;
+		for (i = tamanho; i >= 1; i--) {
+		  soma += numeros.charAt(tamanho - i) * pos--;
+		  if (pos < 2)
+				pos = 9;
+		}
+		resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+		if (resultado != digitos.charAt(1))
+			  return false;
+			   
+		return true;		
+	}
 </script>
 <?php
 	if (isset($_SESSION['type'])){
